@@ -1,0 +1,95 @@
+name: APEXONE CI
+
+on:
+
+  push:
+    branches:
+      - develop
+      - main
+
+  pull_request:
+    branches:
+      - develop
+      - main
+
+
+jobs:
+
+
+  repository-validation:
+
+    name: Repository Validation
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+
+    - name: Validate Repository Structure
+      shell: bash
+      run: |
+
+        set -e
+
+        test -f README.md
+        test -f PROJECT_INFO.json
+        test -f VERSION
+
+        test -f .gitignore
+        test -f .gitattributes
+
+        test -f database/deployment/install/install.sql
+
+
+
+    - name: Validate Database Modules
+      shell: bash
+      run: |
+
+        set -e
+
+        test -f database/modules/core/install_core.sql
+        test -f database/modules/identity/install_identity.sql
+
+
+
+    - name: Validate SQL Inventory
+      shell: bash
+      run: |
+
+        set -e
+
+        find database -name "*.sql" \
+        > sql_files.txt
+
+        test -s sql_files.txt
+
+
+
+    - name: Validate PowerShell Inventory
+      shell: bash
+      run: |
+
+        set -e
+
+        find . -name "*.ps1" \
+        > powershell_files.txt
+
+        test -s powershell_files.txt
+
+
+
+    - name: Secret Pattern Scan
+      shell: bash
+      run: |
+
+        set -e
+
+        ! grep -RniE \
+        "password=|secret=|token=" \
+        --exclude-dir=.git .

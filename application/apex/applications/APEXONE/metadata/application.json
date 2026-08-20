@@ -1,0 +1,20 @@
+{
+  "application_name": "APEXONE Enterprise Platform",
+  "application_alias": "APEXONE",
+  "application_id": null,
+  "application_id_status": "reserved",
+  "schema": "APEXONE",
+  "apex_version": "26.1",
+  "ords_version": "26.x",
+  "application_type": "enterprise_internal",
+  "authentication": {
+    "type": "custom",
+    "owner": "database/modules/identity",
+    "entry_page": 1
+  },
+  "authorization": {
+    "type": "rbac",
+    "owner": "database/modules/security"
+  },
+  "source_of_truth": "export/"
+}

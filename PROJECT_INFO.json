@@ -1,0 +1,42 @@
+{
+  "project": {
+    "name": "APEXONE Enterprise Platform",
+    "code": "APEXONE",
+    "version": "1.0.0-alpha.9",
+    "status": "Development",
+    "description": "Enterprise Oracle APEX Application Platform"
+  },
+  "architecture": {
+    "database": "Oracle AI Database 26ai Free",
+    "apex_version": "26.1",
+    "ords_version": "26.2.1",
+    "application_server": "Apache Tomcat 10.1",
+    "baseline": "1.0",
+    "model": "Layered Modular Enterprise Architecture"
+  },
+  "repository": {
+    "type": "Git",
+    "branching_model": "GitFlow",
+    "main_branch": "main",
+    "development_branch": "develop",
+    "source_of_truth": "Each responsibility has one canonical owner and location"
+  },
+  "database": {
+    "service_name": "FREEPDB1",
+    "schema": "APEXONE",
+    "character_set": "AL32UTF8",
+    "default_tablespace": "APEXONE_DATA"
+  },
+  "deployment": {
+    "entry_point": "database/deployment/install/install.sql",
+    "migration_strategy": "Versioned SQL Migrations",
+    "rollback_supported": false,
+    "lifecycle_model": "database/deployment/lifecycle"
+  },
+  "governance": {
+    "documentation": true,
+    "security_review": true,
+    "change_control": true
+  },
+  "version": "1.0.0-alpha.9"
+}

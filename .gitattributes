@@ -1,0 +1,39 @@
+# ==========================================================
+# APEXONE Enterprise Platform
+# Git Attributes
+# ==========================================================
+
+# Auto detect text files
+* text=auto
+
+# Source Code
+*.sql      text eol=crlf
+*.ps1      text eol=crlf
+*.psm1     text eol=crlf
+*.psd1     text eol=crlf
+*.cmd      text eol=crlf
+*.bat      text eol=crlf
+
+# Documentation
+*.md       text
+*.txt      text
+*.json     text
+*.xml      text
+*.yml      text
+*.yaml     text
+
+# Binary files
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.ico      binary
+*.pdf      binary
+*.zip      binary
+*.7z       binary
+*.jar      binary
+*.exe      binary
+*.dll      binary
+
+# Oracle Export Files
+*.dmp      binary

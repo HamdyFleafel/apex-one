@@ -1,0 +1,9 @@
+-- APEXONE platform installation
+
+SET DEFINE OFF
+SET SERVEROUTPUT ON
+
+WHENEVER OSERROR EXIT FAILURE ROLLBACK
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
+
+@platform/framework/install/install_framework.sql

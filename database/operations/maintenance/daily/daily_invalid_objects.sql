@@ -1,0 +1,38 @@
+PROMPT ====================================================
+PROMPT APEXONE INVALID OBJECTS CHECK
+PROMPT ====================================================
+
+SET PAGESIZE 100
+SET LINESIZE 200
+SET VERIFY OFF
+SET FEEDBACK ON
+
+COLUMN OWNER FORMAT A20
+COLUMN OBJECT_NAME FORMAT A40
+COLUMN OBJECT_TYPE FORMAT A25
+COLUMN STATUS FORMAT A10
+
+SELECT
+    OWNER,
+    OBJECT_NAME,
+    OBJECT_TYPE,
+    STATUS
+FROM DBA_OBJECTS
+WHERE STATUS <> 'VALID'
+AND OWNER NOT IN (
+    'SYS',
+    'SYSTEM',
+    'XDB',
+    'CTXSYS',
+    'MDSYS',
+    'ORDSYS',
+    'DBSNMP'
+)
+ORDER BY OWNER, OBJECT_TYPE, OBJECT_NAME;
+
+PROMPT
+PROMPT ====================================================
+PROMPT INVALID OBJECT CHECK COMPLETED
+PROMPT ====================================================
+
+EXIT

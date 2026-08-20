@@ -1,0 +1,70 @@
+# APEXONE Enterprise Platform
+#
+# Generated/runtime/local artifacts are excluded from version control.
+# Source, architecture and deterministic deployment definitions remain tracked.
+
+# Local configuration
+.env
+.env.*
+config/local/*
+!config/local/database.env.example
+
+# Oracle / runtime artifacts
+*.log
+*.trc
+*.trm
+*.aud
+*.dmp
+*.tmp
+*.temp
+
+# Backups and historical artifacts
+*.bak
+*.backup
+*.ps1.bak
+*.ps1.v1.backup
+backup/
+backups/
+automation/artifacts/*
+!automation/artifacts/.gitkeep
+
+# Oracle / IDE
+.sqldeveloper/
+.vscode/settings.json
+.vscode/*.log
+.sqldeveloper/
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# APEX / ORDS runtime
+apex/workspace/
+apex/tmp/
+ords/logs/
+ords/config/
+
+# Generated deployment output
+deployment/*/generated/
+
+# Generated reports / logs
+database/operations/logs/*
+database/operations/maintenance/logs/*
+database/operations/maintenance/reports/html/*
+database/operations/maintenance/reports/json/*
+database/operations/maintenance/reports/archive/*
+
+!database/operations/logs/.gitkeep
+!database/operations/maintenance/logs/.gitkeep
+!database/operations/maintenance/reports/html/.gitkeep
+!database/operations/maintenance/reports/json/.gitkeep
+!database/operations/maintenance/reports/archive/.gitkeep
+
+# Archives
+*.zip
+*.7z
+*.rar
+
+# Node.js
+node_modules/
+npm-debug.log*
+package-lock.json

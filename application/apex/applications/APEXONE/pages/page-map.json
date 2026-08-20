@@ -1,0 +1,15 @@
+{
+  "public": [
+    { "page": 1, "name": "Login", "owner": "Identity" }
+  ],
+  "main": [
+    { "page": 100, "name": "Dashboard", "owner": "Platform" },
+    { "page": 200, "name": "Users", "owner": "Identity" },
+    { "page": 300, "name": "Roles", "owner": "Security" },
+    { "page": 400, "name": "Permissions", "owner": "Security" },
+    { "page": 500, "name": "Configuration", "owner": "Configuration" },
+    { "page": 600, "name": "Audit", "owner": "Security" },
+    { "page": 700, "name": "Workflow", "owner": "Workflow" },
+    { "page": 800, "name": "Notifications", "owner": "Notification" }
+  ]
+}

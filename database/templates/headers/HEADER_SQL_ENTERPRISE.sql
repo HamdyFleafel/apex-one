@@ -1,0 +1,32 @@
+@"
+-- =============================================================================
+-- Project        : APEXONE Enterprise Platform
+-- Module         : <MODULE_NAME>
+-- Component      : <Tables | Constraints | Indexes | Sequences | Packages |
+--                   Procedures | Triggers | Views | Seed | Tests | Utilities>
+-- Object Name    : <OBJECT_NAME>
+-- Object Type    : <TABLE | CONSTRAINT | INDEX | SEQUENCE | PACKAGE | VIEW |
+--                   PROCEDURE | FUNCTION | TRIGGER | TYPE | SCRIPT>
+-- File           : <FILE_NAME.sql>
+-- Path           : <database/modules/.../file.sql>
+-- Schema         : APEXONE
+-- Version        : <MAJOR.MINOR.PATCH-stage>
+-- Status         : <Development | Stable | Deprecated>
+-- -----------------------------------------------------------------------------
+-- Author         : Hamdy Fleafel
+-- Title          : Enterprise Database Architect
+-- Email          : hamdy.fleafel@belcofarms.com
+-- WhatsApp       : +20 1010506080
+-- -----------------------------------------------------------------------------
+-- Description    : <Concise technical description of the object purpose>
+-- -----------------------------------------------------------------------------
+-- Created On     : <YYYY-MM-DD>
+-- Last Modified  : <YYYY-MM-DD>
+-- -----------------------------------------------------------------------------
+-- Change Log     :
+--   <YYYY-MM-DD>  HF  Initial creation.
+--   <YYYY-MM-DD>  HF  <Short description of modification>.
+-- -----------------------------------------------------------------------------
+-- Copyright (c) 2026 Hamdy Fleafel. All rights reserved.
+-- =============================================================================
+"@ | Set-Content "database\templates\headers\HEADER_SQL_ENTERPRISE.sql"
