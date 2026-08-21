@@ -178,6 +178,13 @@ PROMPT -------------------------------------------------------------------------
 @modules/identity/packages/spec/PKG_IDENTITY.pks
 @modules/identity/packages/body/PKG_IDENTITY.pkb
 
+PROMPT ----------------------------------------------------------------------------
+PROMPT Installing PKG_SESSION
+PROMPT ----------------------------------------------------------------------------
+
+@modules/identity/packages/spec/PKG_SESSION.pks
+@modules/identity/packages/body/PKG_SESSION.pkb
+
 -- =============================================================================
 -- [5/5] Applying Identity Documentation
 -- =============================================================================

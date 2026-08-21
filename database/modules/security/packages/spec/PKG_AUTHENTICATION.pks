@@ -20,5 +20,14 @@ IS
     )
     RETURN NUMBER;
 
+    FUNCTION login_with_session
+    (
+        p_username    IN VARCHAR2,
+        p_password    IN VARCHAR2,
+        p_ip_address  IN VARCHAR2,
+        p_user_agent  IN VARCHAR2
+    )
+    RETURN VARCHAR2;
+
 END PKG_AUTHENTICATION;
 /
