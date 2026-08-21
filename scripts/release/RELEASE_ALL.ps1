@@ -1,4 +1,4 @@
-[CmdletBinding(SupportsShouldProcess = $true)]
+﻿[CmdletBinding(SupportsShouldProcess = $true)]
 param (
     [Parameter(Mandatory = $true)]
     [string]$ConnectionString,
@@ -162,27 +162,38 @@ function Invoke-SqlScript {
         throw "SQL script not found: $ScriptPath"
     }
 
-    Write-Host ""
-    Write-Host "SQL Working Directory:" -ForegroundColor DarkGray
-    Write-Host $WorkingDirectory -ForegroundColor DarkGray
+    if (-not (Test-Path $WorkingDirectory)) {
+        throw "SQL working directory not found: $WorkingDirectory"
+    }
+
+    $resolvedScriptPath = (Resolve-Path $ScriptPath).Path
+    $resolvedWorkingDirectory = (Resolve-Path $WorkingDirectory).Path
 
     Write-Host ""
-    Write-Host "SQL Script:" -ForegroundColor DarkGray
-    Write-Host $ScriptPath -ForegroundColor DarkGray
+    Write-Host "============================================================"
+    Write-Host $Description
+    Write-Host "============================================================"
 
     Write-Host ""
+    Write-Host "SQL Working Directory:"
+    Write-Host $resolvedWorkingDirectory
+
+    Write-Host ""
+    Write-Host "SQL Script:"
+    Write-Host $resolvedScriptPath
 
     $originalLocation = Get-Location
 
     try {
-        Set-Location $WorkingDirectory
+        Set-Location $resolvedWorkingDirectory
 
-        $sqlCommand = "@$ScriptPath"
+        $sqlInput = @(
+            "CONNECT $ConnectionString"
+            "@$resolvedScriptPath"
+            "EXIT"
+        )
 
-        & $SqlExecutable `
-            "-L" `
-            $ConnectionString `
-            $sqlCommand
+        $sqlInput | & $SqlExecutable "-L" "/nolog"
 
         $exitCode = $LASTEXITCODE
 
@@ -191,14 +202,15 @@ function Invoke-SqlScript {
         }
 
         if ($exitCode -ne 0) {
-            throw "SQL script failed with exit code $exitCode : $ScriptPath"
+            throw "SQL script failed with exit code $exitCode : $resolvedScriptPath"
         }
+
+        Write-Pass "$Description completed successfully."
     }
     finally {
         Set-Location $originalLocation
     }
 }
-
 
 # =============================================================================
 # PROJECT PATHS
@@ -216,7 +228,7 @@ $DatabaseInstallScript = Join-Path `
 
 $IntegrationVerificationScript = Join-Path `
     $DatabaseRoot `
-    "modules\integration\tests\VERIFY_INTEGRATION_AND_ORDS.sql"
+    "verification\integration\verify_integration.sql"
 
 $RepositoryCheckScript = Join-Path `
     $ScriptsRoot `
@@ -389,6 +401,10 @@ else {
 # [3/6] ORDS INSTALLATION
 # =============================================================================
 
+$OrdsInstallScript = Join-Path `
+    $ProjectRoot `
+    "application\ords\install_ords.sql"
+
 if ($SkipOrdsInstall) {
 
     Write-WarningMessage "ORDS installation skipped."
@@ -396,32 +412,15 @@ if ($SkipOrdsInstall) {
 }
 else {
 
-    Write-Step "[3/6] ORDS installation..."
+    Write-Step "[3/6] Installing ORDS modules..."
 
-    $ordsInstallScript = Join-Path `
-        $ProjectRoot `
-        "scripts\release\INSTALL_ORDS.ps1"
+    Invoke-SqlScript `
+        -ScriptPath $OrdsInstallScript `
+        -WorkingDirectory (Join-Path $ProjectRoot "application\ords") `
+        -Description "ORDS installation"
 
-    if (Test-Path $ordsInstallScript) {
-
-        & $ordsInstallScript
-
-        if ($LASTEXITCODE -and $LASTEXITCODE -ne 0) {
-            throw "ORDS installation failed."
-        }
-
-        Write-Pass "ORDS installation completed."
-    }
-    else {
-
-        Write-WarningMessage `
-            "ORDS installation script not found: $ordsInstallScript"
-
-        Write-WarningMessage `
-            "Skipping ORDS installation."
-    }
+    Write-Pass "ORDS installation completed."
 }
-
 
 # =============================================================================
 # [4/6] ORDS SMOKE TEST
@@ -486,3 +485,6 @@ Write-Host (Get-Date)
 Write-Host ""
 
 exit 0
+
+
+

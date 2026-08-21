@@ -1,6 +1,17 @@
-SET DEFINE OFF
-WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK
+﻿SET DEFINE OFF
+SET SERVEROUTPUT ON
 
-PROMPT Installing APEXONE ORDS modules...
-@application/ords/modules/create_user.sql
-PROMPT APEXONE ORDS modules installed successfully.
+WHENEVER OSERROR EXIT FAILURE ROLLBACK
+WHENEVER SQLERROR EXIT FAILURE ROLLBACK
+
+PROMPT ============================================================
+PROMPT Installing APEXONE ORDS modules
+PROMPT ============================================================
+
+@modules/create_user.sql
+
+PROMPT ============================================================
+PROMPT APEXONE ORDS modules installed successfully
+PROMPT ============================================================
+
+EXIT SUCCESS
